@@ -12,11 +12,19 @@ const handler = (res, endpoint) => {
             res.end();
         } else {
             let filtered = search(data, value);
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.write(JSON.stringify(filtered));
+            if (filtered.length == 0) {
+                const dataJson = JSON.parse(data);
+                dataJson.push({ "bookName": `${value}` });
+                fs.writeFile(path.join(__dirname, '..', '/books.json'), JSON.stringify(dataJson), (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            }
             res.end();
         }
     })
 }
+
 
 module.exports = handler; 

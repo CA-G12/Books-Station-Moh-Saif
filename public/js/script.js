@@ -94,6 +94,7 @@ const getDataFromApi = (e, bookName) => {
     return;
   }
   const url = `https://www.googleapis.com/books/v1/volumes?q=${bookName}`
+  fetchData(`/addSuggestion/${bookName}`) ;
   fetchData(url, (data) => {
     renderBooks(data);
   })

@@ -3,9 +3,12 @@ const publicHandler = require('./handlers/public');
 const booksHandler = require('./handlers/books');
 const notFoundHandler = require('./handlers/notFound');
 const homeHandler = require('./handlers/home');
+const addSuggestionHandler = require('./handlers/addSuggestion');
 
 const router = (req, res) => {
+
     const endpoint = req.url;
+
     if (endpoint == '/') {
         indexHandler(res);
     } 
@@ -16,7 +19,10 @@ const router = (req, res) => {
         publicHandler(res, endpoint);
     } else if (endpoint.includes('books')) {
         booksHandler(res, endpoint);
-    } else {
+    }else if (endpoint.includes('addSuggestion')){
+        addSuggestionHandler(res,endpoint);
+    }
+     else {
         notFoundHandler(res);
     }
 }
